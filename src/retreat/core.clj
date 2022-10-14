@@ -2,9 +2,10 @@
 
 
 (def array [
-            [1 1 1]
-            [1 1 1]
-            [1 1 1]
+            [0 0 0 0 0 0 0 0 0 0 0 0]
+            [1 1 1 0 0 0 1 1 1 0 0 0]
+            [1 0 0 0 0 0 1 1 1 0 0 0]
+            [0 0 0 0 0 0 0 0 0 0 0 0]
             ]
   )
 
@@ -92,8 +93,7 @@
 
   (loop [i 0]
     (when (< i (count flat-data))
-      (print (nth flat-data i))
-
+      (print (if (= (nth flat-data i) 1) "X" " "))
 
 
       (if (= 0 (mod (+ i 1) row-length)) (println "") ())
@@ -103,8 +103,13 @@
   )
 
 
-(print-loop (flatten array) )
-(println "------")
-(print-loop (logic-loop array) )
+(print-loop (flatten array))
+(println "------------------")
+(def flat-array (logic-loop array))
+(print-loop (logic-loop array))
 
-;(println (flatten (get-neighbors 3 array)) )
+
+
+
+;(println flat-array)
+;(println (subvec flat-array 0 row-length))
