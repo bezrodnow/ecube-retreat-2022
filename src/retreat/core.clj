@@ -2,9 +2,9 @@
 
 
 (def array [
-            [0 1 0]
-            [1 0 0]
-            [1 1 0]
+            [1 1 1]
+            [1 1 1]
+            [1 1 1]
             ]
   )
 
@@ -50,37 +50,60 @@
   [(own-neighbors row-index (nth main-array current-row)) (row-neighbors row-index prev-row) (row-neighbors row-index next-row)]
   )
 
+(defn do-for-alive [number-alive-neighbors]
+
+
+  (def res (if (< number-alive-neighbors 2) 0 (if (> number-alive-neighbors 3) 0 1)))
+  res
+  )
+
+(defn do-for-dead [number-alive-neighbors]
+  (if (= number-alive-neighbors 3) 1 0)
+  )
+
 (defn logic-loop [main-array]
-  (def data (flatten main-array))
+  (def flat-data (flatten main-array))
   (def row-length (count (nth main-array 0)))
 
-  (loop [i 0]
-    (when (< i (count data))
+  (def alive-neighbors-for-index (map
+                                   (fn [i] (reduce + (flatten (get-neighbors i main-array)))
+                                     )
+                                   (vec (range (count flat-data)))
+                                   ))
 
-      (print (nth data i))
+  (def new-data (map
+                  (fn [i] (
+                            if (= (nth flat-data i) 1)
+                            (do-for-alive (nth alive-neighbors-for-index i))
+                            (do-for-dead (nth alive-neighbors-for-index i))
+                            )
+                    )
+                  (vec (range (count alive-neighbors-for-index)))
+                  ))
+
+
+
+  new-data
+
+  )
+
+(defn print-loop [flat-data row-length]
+
+  (loop [i 0]
+    (when (< i (count flat-data))
+      (print (nth flat-data i))
+
+
+
       (if (= 0 (mod (+ i 1) row-length)) (println "") ())
       (recur (+ i 1))
       )
     )
   )
 
-(defn print-loop [main-array] 
-  (def data (flatten main-array))
-  (def row-length (count (nth main-array 0)))
 
-  (loop [i 0]
-    (when (< i (count data))
-      (print (nth data i))
-      (if (= 0 (mod (+ i 1) row-length)) (println "") ())
-      (recur (+ i 1))
-      )
-    )
-  )
+(print-loop (flatten array) (count (nth array 0)))
+(println "------")
+(print-loop (logic-loop array) (count (nth array 0)))
 
-
-(print-loop array)
-(println "--------")
-(logic-loop array)
-(println "--------")
-
-(println (get-neighbors 2 array))
+;(println (flatten (get-neighbors 3 array)) )
