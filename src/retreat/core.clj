@@ -8,6 +8,9 @@
             ]
   )
 
+
+(def row-length (count (nth array 0)))
+
 (defn left-neighbor [index, row]
   (def left (- index 1))
   (if (> left -1) (nth row left) 0)
@@ -35,7 +38,6 @@
   )
 
 (defn get-neighbors [index main-array]
-  (def row-length (count (nth main-array 0)))
   (def current-row (int (/ index row-length)))
   (def prev-row-index (- current-row 1))
   (def next-row-index (+ current-row 1))
@@ -63,7 +65,6 @@
 
 (defn logic-loop [main-array]
   (def flat-data (flatten main-array))
-  (def row-length (count (nth main-array 0)))
 
   (def alive-neighbors-for-index (map
                                    (fn [i] (reduce + (flatten (get-neighbors i main-array)))
@@ -87,7 +88,7 @@
 
   )
 
-(defn print-loop [flat-data row-length]
+(defn print-loop [flat-data]
 
   (loop [i 0]
     (when (< i (count flat-data))
@@ -102,8 +103,8 @@
   )
 
 
-(print-loop (flatten array) (count (nth array 0)))
+(print-loop (flatten array) )
 (println "------")
-(print-loop (logic-loop array) (count (nth array 0)))
+(print-loop (logic-loop array) )
 
 ;(println (flatten (get-neighbors 3 array)) )
