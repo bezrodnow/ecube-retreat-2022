@@ -102,11 +102,21 @@
     )
   )
 
+(defn generate [data count]
+  (def new-data-flat (logic-loop data))
+  (print-loop new-data-flat)
+  (def new-data (partition row-length new-data-flat))
+  (println "------------------")
+  (if (< count 5) (generate new-data (+ count 1)))
+  )
 
-(print-loop (flatten array))
-(println "------------------")
-(def flat-array (logic-loop array))
-(print-loop (logic-loop array))
+
+
+;(print-loop (flatten array))
+;(def flat-array (logic-loop array))
+;(print-loop (logic-loop array))
+
+(generate array 0)
 
 
 
