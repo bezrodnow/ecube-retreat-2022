@@ -117,6 +117,7 @@
   (def new-data-flat (logic-loop data))
   (print-loop new-data-flat)
   (def new-data (partition row-length new-data-flat))
+  (Thread/sleep 500)
   (println "------------------")
   (if (< count 20) (generate new-data (+ count 1)))
   )
