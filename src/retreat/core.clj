@@ -122,15 +122,4 @@
   )
 
 
-
-;(print-loop (flatten array))
-;(def flat-array (logic-loop array))
-;(print-loop (logic-loop array))
-
 (generate array 0)
-
-
-
-
-;(println flat-array)
-;(println (subvec flat-array 0 row-length))
