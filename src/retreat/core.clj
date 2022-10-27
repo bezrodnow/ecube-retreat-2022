@@ -1,5 +1,6 @@
-(ns retreat.core)
-
+(ns retreat.core
+  (:require [clojure.java.shell :as shell])
+  )
 
 (def array [
             [0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
@@ -117,6 +118,8 @@
   (def new-data-flat (logic-loop data))
   (print-loop new-data-flat)
   (def new-data (partition row-length new-data-flat))
+
+  (->> (shell/sh "/bin/sh" "-c" "clear <  /dev/null") :out print)
   (Thread/sleep 500)
   (println "------------------")
   (if (< count 20) (generate new-data (+ count 1)))
