@@ -121,7 +121,6 @@
   (def new-data (partition row-length new-data-flat))
 
   (Thread/sleep 400)
-  (println "------------------")
   (if (< count 1000) (generate new-data (+ count 1)))
   )
 
